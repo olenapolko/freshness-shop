@@ -1,0 +1,7 @@
+<button
+  (click)="handleClick()"
+  class="bg-main-green hover:bg-dark-green text-white font-bold py-2 pl-6 pr-2 rounded flex items-center justify-center"
+>
+  <ng-content></ng-content>
+  <span *ngIf="icon" class="ml-1 material-icons">{{ icon }}</span>
+</button>
