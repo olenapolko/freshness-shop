@@ -1,0 +1,41 @@
+<header class="py-4">
+  <div class="flex space-x-8 justify-between items-center">
+    <ul class="flex space-x-8">
+      <li *ngFor="let link of contactsLinks">
+        <a [href]="link.href" class="text-sm">{{ link.text }}</a>
+      </li>
+    </ul>
+    <ul class="flex space-x-8">
+      <li *ngFor="let link of infoLinks">
+        <a [href]="link.href" class="text-sm">{{ link.text }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="flex justify-between items-center my-6">
+    <img src="assets/logo.svg" alt="Logo image" />
+    <div class="flex space-x-4">
+      <app-auth></app-auth>
+      <app-cart></app-cart>
+    </div>
+  </div>
+  <div>
+    <ul class="flex justify-between items-center bg-gray-50 px-8">
+      <li
+        *ngFor="let category of categories"
+        class="relative py-6 hover:text-main-green"
+        (mouseenter)="setActiveCategory(category.name)"
+        (mouseleave)="clearActiveCategory()"
+      >
+        <span class="cursor-pointer">{{ category.name }}</span>
+        <ul
+          *ngIf="activeCategory === category.name"
+          class="absolute left-0 bg-white text-black p-2 mt-2 space-y-2 rounded shadow-lg"
+        >
+          <li *ngFor="let brand of category.brands">
+            <a href="#" class="block px-4 py-2 hover:bg-light-green">{{ brand }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</header>

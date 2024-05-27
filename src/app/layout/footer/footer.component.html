@@ -1,0 +1,19 @@
+<footer class="mt-20">
+  <div class="flex justify-between gap-6">
+    <div *ngFor="let section of footerLinks" class="links__list">
+      <h2 class="font-bold mb-2">{{ section.title }}</h2>
+      <ul>
+        <li *ngFor="let link of section.links" class="mb-6">
+          <a class="text-main-green hover:text-dark-green" href="#">{{ link }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="my-10">
+    <h2 class="font-bold mb-2">Product tags</h2>
+    <ul class="flex flex-wrap gap-6">
+      <li *ngFor="let tag of tags" class="bg-gray-200 px-4 py-2 rounded-full">{{ tag }}</li>
+    </ul>
+  </div>
+  <p>Copyright © 2020 petrbilek.com</p>
+</footer>
