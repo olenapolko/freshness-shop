@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FOOTER_TAGS, FOOTER_LINKS } from '../../shared/constants/footer.constants';
+import {CommonModule} from '@angular/common';
+import {Component} from '@angular/core';
+import {FOOTER_TAGS, FOOTER_LINKS} from '../../shared/constants/footer.constants';
 
 @Component({
   selector: 'app-footer',

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
@@ -9,4 +9,4 @@ import {MatIconModule} from '@angular/material/icon';
   imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './cart.component.html'
 })
-export class CartComponent { }
+export class CartComponent {}

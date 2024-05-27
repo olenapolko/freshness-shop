@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthComponent } from '../../shared/components/buttons/auth/auth.component';
-import { CartComponent } from '../../shared/components/buttons/cart/cart.component';
-import { CATEGORIES, CONTACTS_LINKS, INFO_LINKS } from '../../shared/constants/header.constants';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AuthComponent} from '../../shared/components/buttons/auth/auth.component';
+import {CartComponent} from '../../shared/components/buttons/cart/cart.component';
+import {CATEGORIES, CONTACTS_LINKS, INFO_LINKS} from '../../shared/constants/header.constants';
 
 @Component({
   selector: 'app-header',
