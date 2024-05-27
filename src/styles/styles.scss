@@ -27,18 +27,15 @@ main {
 a {
   text-decoration: none;
   border: none;
-  color: inherit;
   outline: none;
 
   &:hover {
     text-decoration: none;
-    color: inherit;
   }
 
   &:visited,
   &:active,
   &:focus {
-    color: inherit;
     border: none;
   }
 }
