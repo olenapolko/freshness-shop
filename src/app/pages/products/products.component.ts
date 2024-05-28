@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductInterface} from '../../shared/interfaces/product.interface';
-import {PRODUCTS} from './constants';
+import {ProductsService} from '../../services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -10,8 +10,19 @@ import {PRODUCTS} from './constants';
 export class ProductsComponent implements OnInit {
   title = 'All products';
   products: ProductInterface[] = [];
+  isLoading = false;
+
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
-    this.products = PRODUCTS;
+    this.subscribeToProducts();
+  }
+
+  subscribeToProducts(): void {
+    this.isLoading = true;
+    this.productsService.getProducts().subscribe((products) => {
+      this.products = products;
+      this.isLoading = false;
+    });
   }
 }
