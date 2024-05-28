@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductInterface} from '../../shared/interfaces/product.interface';
-import {PRODUCTS} from './constants';
+import {ProductsService} from '../../services/products.service';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -10,8 +11,23 @@ import {PRODUCTS} from './constants';
 export class ProductsComponent implements OnInit {
   title = 'All products';
   products: ProductInterface[] = [];
+  isLoading = true;
+  sub$ = new Subject<void>();
+
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
-    this.products = PRODUCTS;
+    this.productsService
+      .getProducts()
+      .pipe(takeUntil(this.sub$))
+      .subscribe((products) => {
+        this.products = products;
+        this.isLoading = false;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.sub$.next();
+    this.sub$.complete();
   }
 }
