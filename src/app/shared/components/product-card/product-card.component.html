@@ -21,14 +21,14 @@
           {{ product.quantity }}
         </span>
       </div>
-      <div class="text-gray-400 text-sm text-main-green">
+      <div class="text-sm text-main-green">
         <span class="mr-3">{{ numberToFormat | localeNumberFormat: 'en-US' }}</span>
         <span class="mr-3">{{ numberToFormat | localeNumberFormat: 'en-GB' }}</span>
         <span class="mr-3">{{ numberToFormat | localeNumberFormat: 'de-DE' }}</span>
         <span class="mr-3">{{ numberToFormat | localeNumberFormat: 'fr-FR' }}</span>
         <span>{{ numberToFormat | localeNumberFormat: 'ja-JP' }}</span>
       </div>
-      <div class="text-gray-400 text-sm text-amber-400">
+      <div class="text-sm text-amber-400">
         <span class="mr-3">{{ dateToFormat | localeDate: 'en-EN' }}</span>
         <span class="mr-3">{{ dateToFormat | localeDate: 'de-DE' }}</span>
         <span>{{ dateToFormat | localeDate: 'ua-UA' }}</span>
