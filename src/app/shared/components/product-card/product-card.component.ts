@@ -6,8 +6,6 @@ import {PrimaryButtonComponent} from '../buttons/primary/primary-button.componen
 import {SecondaryButtonComponent} from '../buttons/secondary/secondary-button.component';
 import {MatCardModule} from '@angular/material/card';
 import {SharedModule} from '../../shared.module';
-import {Permissions} from '../../enums/permissions.enum';
-import {AddToCartButtonComponent} from '../buttons/add-to-cart/add-to-cart-button.component';
 
 @Component({
   selector: 'app-product-card',
@@ -18,19 +16,13 @@ import {AddToCartButtonComponent} from '../buttons/add-to-cart/add-to-cart-butto
     PrimaryButtonComponent,
     SecondaryButtonComponent,
     MatCardModule,
-    SharedModule,
-    AddToCartButtonComponent
+    SharedModule
   ],
   templateUrl: './product-card.component.html'
 })
 export class ProductCardComponent {
   @Input() product!: ProductInterface;
   stars: number[] = [];
-
-  public Permissions = Permissions;
-
-  dateToFormat: string = '2024-06-20T00:00:00.000Z';
-  numberToFormat: number = 1234.56;
 
   ngOnInit(): void {
     this.stars = Array(this.product.rating ?? 0)
