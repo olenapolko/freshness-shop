@@ -5,11 +5,19 @@ import {MatIconModule} from '@angular/material/icon';
 import {PrimaryButtonComponent} from '../buttons/primary/primary-button.component';
 import {SecondaryButtonComponent} from '../buttons/secondary/secondary-button.component';
 import {MatCardModule} from '@angular/material/card';
+import {SharedModule} from '../../shared.module';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule, PrimaryButtonComponent, SecondaryButtonComponent, MatCardModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    PrimaryButtonComponent,
+    SecondaryButtonComponent,
+    MatCardModule,
+    SharedModule
+  ],
   templateUrl: './product-card.component.html'
 })
 export class ProductCardComponent {
