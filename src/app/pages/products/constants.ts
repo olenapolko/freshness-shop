@@ -1,5 +1,8 @@
 import {ProductInterface} from '../../shared/interfaces/product.interface';
 
+export const MIN_PRICE = 0;
+export const MAX_PRICE = 2000;
+
 export const PRODUCTS: ProductInterface[] = [
   {
     _id: '663387e0b5c19a94087ebeb6',
