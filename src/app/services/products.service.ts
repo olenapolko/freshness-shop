@@ -11,7 +11,7 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<ProductInterface[]> {
-    const { baseUrl, getAllProductsUrl } = API_ENDPOINTS;
+    const {baseUrl, getAllProductsUrl} = API_ENDPOINTS;
     return this.http.get<ProductInterface[]>(`${baseUrl}${getAllProductsUrl}`);
   }
 }
