@@ -4,22 +4,28 @@
     <ng-container [ngSwitch]="field.type">
       <mat-form-field *ngSwitchCase="FieldType.TEXT" appearance="fill">
         <mat-label>{{ field.label }}</mat-label>
-        <input matInput [formControlName]="field.name" [id]="field.name" type="text" />
+        <input matInput [formControlName]="field.name" type="text" />
       </mat-form-field>
 
       <mat-form-field *ngSwitchCase="FieldType.SELECT" appearance="fill">
         <mat-label>{{ field.label }}</mat-label>
-        <mat-select [formControlName]="field.name" [id]="field.name">
+        <mat-select [formControlName]="field.name">
           <mat-option color="primary" *ngFor="let option of field.options" [value]="option">{{ option }}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <div *ngSwitchCase="FieldType.CHECKBOX" formArrayName="{{ field.name }}" class="mb-8 mt-4">
+      <div *ngSwitchCase="FieldType.CHECKBOX" [formArrayName]="field.name" class="mb-8 mt-4">
         <div class="max-h-60 overflow-auto">
           <div *ngFor="let option of field.options; let i = index">
-            <mat-checkbox color="primary" [formControlName]="i" [id]="field.name + option" class="custom-checkbox">{{
-              option
-            }}</mat-checkbox>
+            <mat-checkbox *ngIf="!field.useIcons" color="primary" [formControlName]="i" class="custom-checkbox">
+              {{ option }}
+            </mat-checkbox>
+
+            <div *ngIf="field.useIcons">
+              <mat-checkbox color="primary" [formControlName]="i" class="custom-checkbox">
+                <mat-icon *ngFor="let star of getIcons(+option)">{{ star }}</mat-icon>
+              </mat-checkbox>
+            </div>
           </div>
         </div>
       </div>
@@ -27,17 +33,15 @@
       <div *ngSwitchCase="FieldType.RADIO">
         <div *ngFor="let option of field.options">
           <mat-radio-group [formControlName]="field.name">
-            <mat-radio-button color="primary" [id]="field.name + option" [value]="option">{{
-              option
-            }}</mat-radio-button>
+            <mat-radio-button color="primary" [value]="option">{{ option }}</mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
 
       <div *ngSwitchCase="FieldType.SLIDER" [formGroupName]="field.name">
         <mat-slider [min]="field.min" [max]="field.max" style="width: 100%; margin-bottom: 20px">
-          <input value="{{ field.min }}" matSliderStartThumb [formControlName]="'min'" />
-          <input value="{{ field.max }}" matSliderEndThumb [formControlName]="'max'" />
+          <input [value]="field.min" matSliderStartThumb [formControlName]="'min'" />
+          <input [value]="field.max" matSliderEndThumb [formControlName]="'max'" />
         </mat-slider>
 
         <div class="flex justify-between align-center">

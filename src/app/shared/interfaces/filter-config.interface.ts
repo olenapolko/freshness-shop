@@ -4,10 +4,11 @@ export interface FilterField {
   type: FieldType;
   name: string;
   label: string;
-  options?: string[];
+  options?: (number | string)[];
   min?: number;
   max?: number;
   step?: number;
+  useIcons?: boolean;
 }
 
 export interface FilterConfig {

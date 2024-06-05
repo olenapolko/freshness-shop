@@ -11,7 +11,6 @@ import {productsFilterConfig} from './products-filters-config';
 export class ProductsComponent implements OnInit {
   title = 'All products';
   products: ProductInterface[] = [];
-  filteredProducts: ProductInterface[] = [];
   isLoading = false;
 
   filterConfig = productsFilterConfig;
@@ -26,7 +25,6 @@ export class ProductsComponent implements OnInit {
     this.isLoading = true;
     this.productsService.getProducts().subscribe((products) => {
       this.products = products;
-      this.filteredProducts = products;
       this.isLoading = false;
     });
   }

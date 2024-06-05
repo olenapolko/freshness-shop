@@ -3,12 +3,12 @@
   <div *ngIf="isLoading" class="spinner-container">
     <mat-spinner color="primary" diameter="40"></mat-spinner>
   </div>
-  <div class="flex justify-between">
-    <div class="w-1/4">
+  <div class="flex flex-col lg:flex-row justify-between">
+    <div class="filter-container flex-shrink-0 lg:w-1/4 p-2 mr-12">
       <app-filter [config]="filterConfig" (filtersChanged)="onFiltersChanged($event)"></app-filter>
     </div>
-    <div *ngIf="!isLoading" class="flex flex-wrap justify-end gap-4 mb-10 w-3/4">
-      @for (product of filteredProducts; track product) {
+    <div *ngIf="!isLoading" class="products-container flex-grow flex flex-wrap justify-center gap-4 mb-10 lg:w-3/4 p-2">
+      @for (product of products; track product) {
         <app-product-card [product]="product"></app-product-card>
       } @empty {
         No products
