@@ -11,7 +11,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
-import {MIN_PRICE, MAX_PRICE} from '../../../pages/products/constants';
+import {MIN_PRICE, MAX_PRICE} from '../../../pages/products/constants/constants';
 import {FieldType} from '../../enums/field-type.enum';
 import {MatIconModule} from '@angular/material/icon';
 
@@ -63,8 +63,6 @@ export class FilterComponent implements OnInit, OnDestroy {
           .map((checked: boolean, index: number) => (checked ? field.options?.[index] : null))
           .filter((value: any) => value !== null);
         transformedValue[field.name] = selectedOptions;
-      } else if (field.type === FieldType.SLIDER) {
-        transformedValue[field.name] = [value[field.name].min, value[field.name].max];
       }
     }
 
@@ -106,7 +104,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   updateSlider(event: Event, formItemId: string, control: string): void {
     const value = (event.target as HTMLInputElement)?.value;
-    this.filterForm.get(`${formItemId}`)?.get(`${control}`)?.patchValue(+value);
+    this.filterForm.get(formItemId)?.get(control)?.patchValue(+value);
     this.filterForm.markAsDirty();
   }
 
