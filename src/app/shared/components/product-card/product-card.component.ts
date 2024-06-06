@@ -10,14 +10,7 @@ import {SharedModule} from '../../shared.module';
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    PrimaryButtonComponent,
-    SecondaryButtonComponent,
-    MatCardModule,
-    SharedModule
-  ],
+  imports: [CommonModule, MatIconModule, PrimaryButtonComponent, SecondaryButtonComponent, MatCardModule, SharedModule],
   templateUrl: './product-card.component.html'
 })
 export class ProductCardComponent {

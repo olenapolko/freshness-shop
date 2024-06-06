@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductInterface} from '../../shared/interfaces/product.interface';
 import {ProductsService} from '../../services/products.service';
+import {productsFilterConfig} from './products-filters-config';
 
 @Component({
   selector: 'app-products',
@@ -11,6 +12,8 @@ export class ProductsComponent implements OnInit {
   title = 'All products';
   products: ProductInterface[] = [];
   isLoading = false;
+
+  filterConfig = productsFilterConfig;
 
   constructor(private productsService: ProductsService) {}
 
@@ -24,5 +27,9 @@ export class ProductsComponent implements OnInit {
       this.products = products;
       this.isLoading = false;
     });
+  }
+
+  onFiltersChanged(filters: any): void {
+    console.log('Filters in Products', filters);
   }
 }

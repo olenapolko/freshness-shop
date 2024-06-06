@@ -1,4 +1,7 @@
-import {ProductInterface} from '../../shared/interfaces/product.interface';
+import {ProductInterface} from '../../../shared/interfaces/product.interface';
+
+export const MIN_PRICE = 0;
+export const MAX_PRICE = 2000;
 
 export const PRODUCTS: ProductInterface[] = [
   {

@@ -7,6 +7,8 @@ import {SmoothGrowDirective} from './directives/smooth-grow.directive';
 import {HasPermissionsDirective} from './directives/has-permissions.directive';
 import {LocaleNumberFormatPipe} from './pipes/locale-number-format.pipe';
 import {LocaleDatePipe} from './pipes/locale-date-format.pipe';
+import {FilterComponent} from './components/filter/filter.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -18,7 +20,9 @@ import {LocaleDatePipe} from './pipes/locale-date-format.pipe';
     SmoothGrowDirective,
     HasPermissionsDirective,
     LocaleNumberFormatPipe,
-    LocaleDatePipe
+    LocaleDatePipe,
+    FilterComponent,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,
@@ -27,7 +31,9 @@ import {LocaleDatePipe} from './pipes/locale-date-format.pipe';
     SmoothGrowDirective,
     HasPermissionsDirective,
     LocaleNumberFormatPipe,
-    LocaleDatePipe
+    LocaleDatePipe,
+    FilterComponent,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule {}
