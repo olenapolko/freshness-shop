@@ -12,7 +12,6 @@ import {EMPTY, Subject, Subscription, catchError, finalize, takeUntil} from 'rxj
 export class ProductsComponent implements OnInit {
   title = 'All products';
   products: ProductInterface[] = [];
-  filteredProducts: ProductInterface[] = [];
   isLoading = false;
 
   filterConfig = productsFilterConfig;
@@ -39,7 +38,6 @@ export class ProductsComponent implements OnInit {
       .subscribe({
         next: (products) => {
           this.products = products;
-          this.filteredProducts = products;
         }
       });
   }

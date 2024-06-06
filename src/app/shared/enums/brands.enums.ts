@@ -1,36 +1,34 @@
 export enum Brands {
-  APPLE = 1,
-  ASUS = 2,
-  BRIT = 3,
-  CATRICE = 4,
-  COLEMAN = 5,
-  GEEDIAR = 6,
-  KANDYTOYS = 7,
-  LEGO = 8,
-  LOREAL = 9,
-  MAYBELLINE = 10,
-  SAMSUNG = 11,
-  SAVORY = 12
+  Apple = 'Apple',
+  Asus = 'Asus',
+  Brit = 'Brit',
+  Catrice = 'Catrice',
+  Coleman = 'Coleman',
+  Geediar = 'Geediar',
+  KandyToys = 'KandyToys',
+  Lego = 'Lego',
+  Loreal = 'Loreal',
+  Maybelline = 'Maybelline',
+  Samsung = 'Samsung',
+  Savory = 'Savory'
 }
 
 export const brandLabels = {
-  [Brands.APPLE]: 'Apple',
-  [Brands.ASUS]: 'Asus',
-  [Brands.BRIT]: 'Brit',
-  [Brands.CATRICE]: 'Catrice',
-  [Brands.COLEMAN]: 'Coleman',
-  [Brands.GEEDIAR]: 'Geediar',
-  [Brands.KANDYTOYS]: 'KandyToys',
-  [Brands.LEGO]: 'Lego',
-  [Brands.LOREAL]: 'Loreal',
-  [Brands.MAYBELLINE]: 'Maybelline',
-  [Brands.SAMSUNG]: 'Samsung',
-  [Brands.SAVORY]: 'Savory'
+  [Brands.Apple]: 'Apple',
+  [Brands.Asus]: 'Asus',
+  [Brands.Brit]: 'Brit',
+  [Brands.Catrice]: 'Catrice',
+  [Brands.Coleman]: 'Coleman',
+  [Brands.Geediar]: 'Geediar',
+  [Brands.KandyToys]: 'KandyToys',
+  [Brands.Lego]: 'Lego',
+  [Brands.Loreal]: 'Loreal',
+  [Brands.Maybelline]: 'Maybelline',
+  [Brands.Samsung]: 'Samsung',
+  [Brands.Savory]: 'Savory'
 };
 
-export const brands = Object.values(Brands)
-  .filter((value) => typeof value === 'number')
-  .map((value) => ({
-    value: value as Brands,
-    label: brandLabels[value as Brands]
-  }));
+export const brands = Object.values(Brands).map((value) => ({
+  value: value as Brands,
+  label: brandLabels[value as Brands]
+}));
