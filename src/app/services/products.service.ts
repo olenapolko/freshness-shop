@@ -8,10 +8,16 @@ import {API_ENDPOINTS} from '../shared/constants/endpoints.constant';
   providedIn: 'root'
 })
 export class ProductsService {
+  baseUrl: string = API_ENDPOINTS.baseUrl;
+  getAllProductsUrl: string = API_ENDPOINTS.getAllProductsUrl;
+
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<ProductInterface[]> {
-    const {baseUrl, getAllProductsUrl} = API_ENDPOINTS;
-    return this.http.get<ProductInterface[]>(`${baseUrl}${getAllProductsUrl}`);
+    return this.http.get<ProductInterface[]>(`${this.baseUrl}/${this.getAllProductsUrl}`);
+  }
+
+  getProductDetails(id: string): Observable<ProductInterface> {
+    return this.http.get<ProductInterface>(`${this.baseUrl}/${this.getAllProductsUrl}/${id}`);
   }
 }
