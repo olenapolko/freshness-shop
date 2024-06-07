@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductInterface} from '../../shared/interfaces/product.interface';
-import {ProductsService} from '../../services/products.service';
-import {productsFilterConfig} from './products-filters-config';
-import {EMPTY, Subject, Subscription, catchError, finalize, takeUntil} from 'rxjs';
+import {ProductInterface} from '@shared/interfaces/product.interface';
+import {ProductsService} from '@services/products.service';
+import {productsFilterConfig} from './constants/products-filters-config';
 
 @Component({
   selector: 'app-products',
@@ -26,20 +25,10 @@ export class ProductsComponent implements OnInit {
     this.isLoading = true;
     this.productsService
       .getProducts()
-      .pipe(
-        catchError((error) => {
-          console.error('Error fetching products', error);
-          return EMPTY;
-        }),
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe({
-        next: (products) => {
-          this.products = products;
-        }
-      });
+      .subscribe((products) => {
+        this.products = products;
+      })
+      .add(() => (this.isLoading = false));
   }
 
   onFiltersChanged(filters: any): void {

@@ -1,5 +1,5 @@
 import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
-import {Permissions} from '../enums/permissions.enum';
+import {Permissions} from '@shared/enums/permissions.enum';
 import {USER} from '../constants/user.constant';
 
 @Directive({

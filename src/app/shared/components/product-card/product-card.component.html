@@ -28,7 +28,9 @@
         <span *ngIf="product.discount" class="text-sm text-gray-400 line-through">{{ product.price }} USD</span>
       </div>
       <div class="flex flex-col gap-2">
-        <app-primary-button icon="keyboard_arrow_right"> Product Details </app-primary-button>
+        <app-primary-button icon="keyboard_arrow_right" (click)="navigateToProductDetails($event)">
+          Product Details
+        </app-primary-button>
         <app-secondary-button icon="favorite_border"> Add to wishlist </app-secondary-button>
       </div>
     </div>

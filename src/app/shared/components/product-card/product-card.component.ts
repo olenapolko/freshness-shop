@@ -1,11 +1,13 @@
 import {Component, Input} from '@angular/core';
-import {ProductInterface} from '../../interfaces/product.interface';
+import {ProductInterface} from '@shared/interfaces/product.interface';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {PrimaryButtonComponent} from '../buttons/primary/primary-button.component';
 import {SecondaryButtonComponent} from '../buttons/secondary/secondary-button.component';
 import {MatCardModule} from '@angular/material/card';
-import {SharedModule} from '../../shared.module';
+import {SharedModule} from '@shared/shared.module';
+import {Router} from '@angular/router';
+import {getAllProductsUrl} from '@environments/environment';
 
 @Component({
   selector: 'app-product-card',
@@ -16,6 +18,8 @@ import {SharedModule} from '../../shared.module';
 export class ProductCardComponent {
   @Input() product!: ProductInterface;
   stars: number[] = [];
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.stars = Array(this.product.rating ?? 0)
@@ -28,5 +32,10 @@ export class ProductCardComponent {
       return price - (price * discount) / 100;
     }
     return price;
+  }
+
+  navigateToProductDetails(event: Event): void {
+    event.stopPropagation();
+    this.router.navigate([`/${getAllProductsUrl}/${this.product._id}`]);
   }
 }

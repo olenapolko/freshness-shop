@@ -1,0 +1,46 @@
+<div class="flex flex-wrap justify-between mt-16 mb-20">
+  <div class="w-full md:w-1/2 p-2">
+    <img
+      *ngIf="product.images.length > 0"
+      [src]="product.images[activeIndex]"
+      [alt]="'Main Product'"
+      class="main-image block mx-auto"
+    />
+    <div class="mt-4 flex flex-wrap justify-center">
+      <div
+        *ngFor="let image of product.images; let i = index"
+        (click)="handleThumbnailClick(i)"
+        class="cursor-pointer p-2 w-1/4 md:w-1/6"
+      >
+        <img [src]="image" [alt]="'Product Image ' + (i + 1)" class="w-full" />
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-1/2 p-2 flex flex-col">
+    <h1 class="text-2xl font-bold mb-4">{{ product.title }}</h1>
+    <div class="flex mb-8">
+      <mat-icon *ngFor="let star of stars">star</mat-icon>
+    </div>
+    <p class="text-lg">{{ product.description }}</p>
+    <div class="my-12 flex justify-between gap-10">
+      <div class="mb-3 text-gray-400 grid grid-cols-2 gap-x-20 gap-y-4">
+        <span>Brand:</span>
+        <span>{{ product.brand }}</span>
+        <span>Country:</span>
+        <span>{{ product.country }}</span>
+        <span>Stock:</span>
+        <span [ngClass]="{'text-main-green': product.quantity > 0, 'text-red': product.quantity === 0}">
+          {{ product.quantity }}
+        </span>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="text-2xl font-semibold">{{ discountedPrice }} USD</span>
+      <span *ngIf="product.discount" class="line-through text-gray-500">{{ product.price }} USD</span>
+    </div>
+    <div class="flex gap-4 mt-4">
+      <app-primary-button icon="add">Add to cart</app-primary-button>
+      <app-secondary-button icon="favorite_border">Add to wishlist</app-secondary-button>
+    </div>
+  </div>
+</div>

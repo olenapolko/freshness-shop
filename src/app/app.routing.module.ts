@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {RoutingConstants} from './shared/constants/routing.constants';
+import {RoutingConstants} from '@shared/constants/routing.constants';
 
 export const routes: Routes = [
   {
