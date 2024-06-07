@@ -1,14 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {delay} from 'rxjs/operators';
-import {PRODUCTS} from '../pages/products/constants/constants';
+import {Observable} from 'rxjs';
 import {ProductInterface} from '../shared/interfaces/product.interface';
+import {HttpClient} from '@angular/common/http';
+import {API_ENDPOINTS} from '../shared/constants/endpoints.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
+  constructor(private http: HttpClient) {}
+
   getProducts(): Observable<ProductInterface[]> {
-    return of(PRODUCTS).pipe(delay(1000));
+    const {baseUrl, getAllProductsUrl} = API_ENDPOINTS;
+    return this.http.get<ProductInterface[]>(`${baseUrl}${getAllProductsUrl}`);
   }
 }
