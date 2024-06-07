@@ -5,8 +5,8 @@ import {ProductDetailsComponent} from './product-details.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {PrimaryButtonComponent} from '../../../shared/components/buttons/primary/primary-button.component';
-import {SecondaryButtonComponent} from '../../../shared/components/buttons/secondary/secondary-button.component';
+import {PrimaryButtonComponent} from '@shared/components/buttons/primary/primary-button.component';
+import {SecondaryButtonComponent} from '@shared/components/buttons/secondary/secondary-button.component';
 
 const routes: Routes = [
   {

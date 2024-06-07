@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ProductInterface} from '../shared/interfaces/product.interface';
+import {ProductInterface} from '@shared/interfaces/product.interface';
 import {HttpClient} from '@angular/common/http';
-import {API_ENDPOINTS} from '../shared/constants/endpoints.constant';
+import {baseUrl, getAllProductsUrl} from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  baseUrl: string = API_ENDPOINTS.baseUrl;
-  getAllProductsUrl: string = API_ENDPOINTS.getAllProductsUrl;
+  baseUrl: string = baseUrl;
+  getAllProductsUrl: string = getAllProductsUrl;
 
   constructor(private http: HttpClient) {}
 

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ProductInterface} from '../../../shared/interfaces/product.interface';
+import {ProductInterface} from '@shared/interfaces/product.interface';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-details',
@@ -12,11 +14,21 @@ export class ProductDetailsComponent implements OnInit {
   activeIndex = 0;
   stars: number[] = [];
   discountedPrice!: number;
+  subs$ = new Subject<void>();
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.data.subscribe((data) => {
+    this.subscribeToRouteData();
+  }
+
+  ngOnDestroy(): void {
+    this.subs$.next();
+    this.subs$.complete();
+  }
+
+  private subscribeToRouteData(): void {
+    this.route.data.pipe(takeUntil(this.subs$)).subscribe((data) => {
       this.product = data['productDetails'];
       this.discountedPrice = this.calculateDiscountedPrice(this.product.price, this.product.discount);
       this.stars = Array(this.product.rating)

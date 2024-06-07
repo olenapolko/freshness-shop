@@ -1,8 +1,8 @@
-import {FilterConfig} from '../../shared/interfaces/filter-config.interface';
-import {categories} from '../../shared/enums/categories.enums';
-import {brands} from '../../shared/enums/brands.enums';
-import {FieldType} from '../../shared/enums/field-type.enum';
-import {MIN_PRICE, MAX_PRICE} from './constants/constants';
+import {FilterConfig} from '../../../shared/interfaces/filter-config.interface';
+import {categories} from '../../../shared/enums/categories.enums';
+import {brands} from '../../../shared/enums/brands.enums';
+import {FieldType} from '../../../shared/enums/field-type.enum';
+import {MIN_PRICE, MAX_PRICE} from './constants';
 
 export const productsFilterConfig: FilterConfig = {
   fields: [

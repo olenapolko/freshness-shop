@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, OnDestroy} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {FilterConfig} from '../../interfaces/filter-config.interface';
+import {FilterConfig} from '@shared/interfaces/filter-config.interface';
 import {CommonModule} from '@angular/common';
 import {MatSliderModule} from '@angular/material/slider';
 import {Subject} from 'rxjs';
@@ -11,8 +11,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
-import {MIN_PRICE, MAX_PRICE} from '../../../pages/products/constants/constants';
-import {FieldType} from '../../enums/field-type.enum';
+import {MIN_PRICE, MAX_PRICE} from 'src/app/pages/products/constants/constants';
+import {FieldType} from '@shared/enums/field-type.enum';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({

@@ -1,5 +1,5 @@
-import {User} from '../interfaces/user.interface';
-import {Permissions} from '../enums/permissions.enum';
+import {User} from '@shared/interfaces/user.interface';
+import {Permissions} from '@shared/enums/permissions.enum';
 
 export const USER: User = {
   id: 1,
