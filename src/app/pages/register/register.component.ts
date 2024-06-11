@@ -48,7 +48,6 @@
 //   }
 // }
 
-
 import {Component, OnInit} from '@angular/core';
 import {FilterConfig} from '@shared/interfaces/filter-config.interface';
 import {Router} from '@angular/router';

@@ -9,9 +9,12 @@ import {CommonModule} from '@angular/common';
 })
 export class PrimaryButtonComponent {
   @Input() icon?: string;
+  @Input() disabled?: boolean = false;
   @Output() buttonClick = new EventEmitter<void>();
 
   handleClick() {
-    this.buttonClick.emit();
+    if (!this.disabled) {
+      this.buttonClick.emit();
+    }
   }
 }

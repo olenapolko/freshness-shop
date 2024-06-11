@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
-import { LayoutComponent } from './layout/layout.component';
-import { RoutingConstants } from '@shared/constants/routing.constants';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {authenticatedGuard} from './guards/authenticatedGuard';
+import {unauthenticatedGuard} from './guards/unauthenticatedGuard';
+import {LayoutComponent} from './layout/layout.component';
+import {RoutingConstants} from '@shared/constants/routing.constants';
 
 const routes: Routes = [
   {
@@ -16,18 +17,20 @@ const routes: Routes = [
     children: [
       {
         path: RoutingConstants.PRODUCTS,
-        loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule),
-        canActivate: [AuthGuard]
+        loadChildren: () => import('./pages/products/products.module').then((m) => m.ProductsModule),
+        canActivate: [authenticatedGuard]
       }
     ]
   },
   {
     path: RoutingConstants.REGISTER,
-    loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule)
+    loadChildren: () => import('./pages/register/register.module').then((m) => m.RegisterModule),
+    canActivate: [unauthenticatedGuard]
   },
   {
     path: RoutingConstants.LOGIN,
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
+    loadChildren: () => import('./pages/login/login.module').then((m) => m.LoginModule),
+    canActivate: [unauthenticatedGuard]
   },
   {
     path: '**',
@@ -36,7 +39,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' })],
+  imports: [RouterModule.forRoot(routes, {initialNavigation: 'enabledBlocking'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

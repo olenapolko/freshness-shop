@@ -1,6 +1,10 @@
-export const baseUrl = 'https://freshnesecom-project-server.onrender.com';
-export const getAllProductsUrl = 'products';
-export const loginUrl = `${baseUrl}/login`;
-export const registerUrl = `${baseUrl}/register`;
-export const userUrl = `${baseUrl}/user`;
-export const refreshUrl = `${baseUrl}/refresh`;
+export const environment = {
+  baseUrl: 'https://freshnesecom-project-server.onrender.com',
+  endpoints: {
+    getAllProducts: 'products',
+    login: '/login',
+    register: '/register',
+    user: '/user',
+    refresh: '/refresh'
+  }
+};

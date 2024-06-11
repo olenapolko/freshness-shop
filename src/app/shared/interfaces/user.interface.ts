@@ -6,7 +6,6 @@ import {Permissions} from '../enums/permissions.enum';
 //   permissions: Permissions[];
 // }
 
-
 export interface User {
   _id: string;
   firstName: string;

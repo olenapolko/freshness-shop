@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ProductInterface} from '@shared/interfaces/product.interface';
 import {HttpClient} from '@angular/common/http';
-import {baseUrl, getAllProductsUrl} from '@environments/environment';
+import {environment} from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  baseUrl: string = baseUrl;
-  getAllProductsUrl: string = getAllProductsUrl;
+  baseUrl: string = environment.baseUrl;
+  getAllProductsUrl: string = environment.endpoints.getAllProducts;
 
   constructor(private http: HttpClient) {}
 

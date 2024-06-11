@@ -2,9 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProductInterface} from '@shared/interfaces/product.interface';
 import {ProductsService} from '@services/products.service';
 import {productsFilterConfig} from './constants/products-filters-config';
-import { FormGroup } from '@angular/forms';
-import { MAX_PRICE, MIN_PRICE } from './constants/constants';
-import { DynamicFormComponent } from '@shared/components/form/dynamic-form.component';
+import {FormGroup} from '@angular/forms';
+import {MAX_PRICE, MIN_PRICE} from './constants/constants';
+import {DynamicFormComponent} from '@shared/components/form/dynamic-form.component';
 
 @Component({
   selector: 'app-products',

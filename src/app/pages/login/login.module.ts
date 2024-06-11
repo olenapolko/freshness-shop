@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login.component';
-import { DynamicFormComponent } from '@shared/components/form/dynamic-form.component';
-import { PrimaryButtonComponent } from '@shared/components/buttons/primary/primary-button.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginComponent} from './login.component';
+import {DynamicFormComponent} from '@shared/components/form/dynamic-form.component';
+import {PrimaryButtonComponent} from '@shared/components/buttons/primary/primary-button.component';
 
 const routes: Routes = [
   {
@@ -17,9 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,10 +26,8 @@ const routes: Routes = [
     MatButtonModule,
     DynamicFormComponent,
     PrimaryButtonComponent,
-    RouterModule.forChild(routes) 
+    RouterModule.forChild(routes)
   ],
-  exports: [
-    LoginComponent
-  ]
+  exports: [LoginComponent]
 })
-export class LoginModule { }
+export class LoginModule {}

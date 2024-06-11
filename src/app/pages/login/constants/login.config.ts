@@ -1,6 +1,6 @@
-import { FilterConfig } from '@shared/interfaces/filter-config.interface';
-import { FieldType } from '@shared/enums/field-type.enum';
-import { Validators } from '@angular/forms';
+import {FilterConfig} from '@shared/interfaces/filter-config.interface';
+import {FieldType} from '@shared/enums/field-type.enum';
+import {Validators} from '@angular/forms';
 
 export const loginFormConfig: FilterConfig = {
   fields: [

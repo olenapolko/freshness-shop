@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { DynamicFormComponent } from '@shared/components/form/dynamic-form.component';
-import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './register.component';
-import { PrimaryButtonComponent } from '@shared/components/buttons/primary/primary-button.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {DynamicFormComponent} from '@shared/components/form/dynamic-form.component';
+import {RouterModule, Routes} from '@angular/router';
+import {RegisterComponent} from './register.component';
+import {PrimaryButtonComponent} from '@shared/components/buttons/primary/primary-button.component';
 
 const routes: Routes = [
   {
@@ -17,9 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    RegisterComponent
-  ],
+  declarations: [RegisterComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,10 +26,8 @@ const routes: Routes = [
     MatButtonModule,
     DynamicFormComponent,
     PrimaryButtonComponent,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
-  exports: [
-    RegisterComponent
-  ]
+  exports: [RegisterComponent]
 })
-export class RegisterModule { }
+export class RegisterModule {}

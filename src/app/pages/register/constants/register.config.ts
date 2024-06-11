@@ -1,6 +1,6 @@
-import { FilterConfig } from '@shared/interfaces/filter-config.interface';
-import { FieldType } from '@shared/enums/field-type.enum';
-import { Validators } from '@angular/forms';
+import {FilterConfig} from '@shared/interfaces/filter-config.interface';
+import {FieldType} from '@shared/enums/field-type.enum';
+import {Validators} from '@angular/forms';
 
 export const registerFormConfig: FilterConfig = {
   fields: [
@@ -25,7 +25,7 @@ export const registerFormConfig: FilterConfig = {
     {
       type: FieldType.TEXT,
       name: 'phoneNumber',
-      label: 'Phone Number',
+      label: 'Phone Number'
     },
     {
       type: FieldType.PASSWORD,
@@ -34,16 +34,14 @@ export const registerFormConfig: FilterConfig = {
       validators: [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(/^(?=.*[A-Z]{2})(?=.*[a-z]{2})(?=.*\d{2})(?=.*[@$!%*?&]{2})/),
+        Validators.pattern(/^(?=.*[A-Z]{2})(?=.*[a-z]{2})(?=.*\d{2})(?=.*[@$!%*?&]{2})/)
       ]
     },
     {
       type: FieldType.PASSWORD,
       name: 'confirmPassword',
       label: 'Confirm Password',
-      validators: [
-        Validators.required
-      ]
+      validators: [Validators.required]
     }
   ]
 };

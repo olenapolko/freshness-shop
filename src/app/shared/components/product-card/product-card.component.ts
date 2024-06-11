@@ -7,7 +7,7 @@ import {SecondaryButtonComponent} from '../buttons/secondary/secondary-button.co
 import {MatCardModule} from '@angular/material/card';
 import {SharedModule} from '@shared/shared.module';
 import {Router} from '@angular/router';
-import {getAllProductsUrl} from '@environments/environment';
+import {environment} from '@environments/environment';
 
 @Component({
   selector: 'app-product-card',
@@ -36,6 +36,6 @@ export class ProductCardComponent {
 
   navigateToProductDetails(event: Event): void {
     event.stopPropagation();
-    this.router.navigate([`/${getAllProductsUrl}/${this.product._id}`]);
+    this.router.navigate([`/${environment.endpoints.getAllProducts}/${this.product._id}`]);
   }
 }

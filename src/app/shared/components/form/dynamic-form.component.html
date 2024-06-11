@@ -5,29 +5,24 @@
       <mat-form-field *ngSwitchCase="FieldType.TEXT" appearance="fill" class="w-full mb-2" subscriptSizing="dynamic">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [formControlName]="field.name" type="text" />
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('required')">
-          {{ field.label }} is required
-        </mat-error>
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('email')">
-          Invalid email format
-        </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('required')"> {{ field.label }} is required </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('email')"> Invalid email format </mat-error>
       </mat-form-field>
 
-      <mat-form-field *ngSwitchCase="FieldType.PASSWORD" appearance="fill" class="w-full mb-2" subscriptSizing="dynamic">
+      <mat-form-field
+        *ngSwitchCase="FieldType.PASSWORD"
+        appearance="fill"
+        class="w-full mb-2"
+        subscriptSizing="dynamic"
+      >
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [formControlName]="field.name" type="password" />
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('required')">
-          {{ field.label }} is required
-        </mat-error>
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('minlength')">
-          Minimum length is 8
-        </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('required')"> {{ field.label }} is required </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('minlength')"> Minimum length is 8 </mat-error>
         <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('pattern')">
           Password must include 2 uppercase letters, 2 lowercase letters, 2 numbers, and 2 symbols
         </mat-error>
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('mismatch')">
-          Passwords don't match
-        </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('mismatch')"> Passwords don't match </mat-error>
       </mat-form-field>
 
       <mat-form-field *ngSwitchCase="FieldType.SELECT" appearance="fill">
@@ -94,5 +89,5 @@
       </div>
     </ng-container>
   </div>
- <ng-content></ng-content>
+  <ng-content></ng-content>
 </form>

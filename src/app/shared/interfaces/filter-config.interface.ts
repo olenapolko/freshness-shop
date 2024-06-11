@@ -1,4 +1,4 @@
-import { ValidatorFn } from '@angular/forms';
+import {ValidatorFn} from '@angular/forms';
 import {FieldType} from '../enums/field-type.enum';
 
 export interface FilterField {

@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FilterConfig } from '@shared/interfaces/filter-config.interface';
-import { CommonModule } from '@angular/common';
-import { MatSliderModule } from '@angular/material/slider';
-import { Subject } from 'rxjs';
-import { takeUntil, debounceTime } from 'rxjs/operators';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import {Component, EventEmitter, Input, OnInit, Output, OnDestroy} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FilterConfig} from '@shared/interfaces/filter-config.interface';
+import {CommonModule} from '@angular/common';
+import {MatSliderModule} from '@angular/material/slider';
+import {Subject} from 'rxjs';
+import {takeUntil, debounceTime} from 'rxjs/operators';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatIconModule } from '@angular/material/icon';
-import { FieldType } from '@shared/enums/field-type.enum';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatIconModule} from '@angular/material/icon';
+import {FieldType} from '@shared/enums/field-type.enum';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -58,7 +58,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   private transformFormValues(value: any): any {
-    const transformedValue = { ...value };
+    const transformedValue = {...value};
 
     for (const field of this.config.fields) {
       if (field.type === FieldType.CHECKBOX) {
@@ -94,9 +94,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
           max: new FormControl(field.max)
         });
       default:
-        // if (field.name === "confirmPassword") {
-        //   return new FormControl('', this.matchPasswordValidator());
-        // }
         return new FormControl('', validators);
     }
   }
@@ -106,22 +103,22 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     this.config.fields.forEach((field) => {
       group[field.name] = this.formControlResolver(field);
     });
-    // return this.fb.group(group);
-    
-    return this.fb.group(group, { validators: this.matchPasswordValidator()});
+    return this.fb.group(group, {validators: this.matchPasswordValidator()});
   }
 
-  private matchPasswordValidator(): any {    
+  private matchPasswordValidator(): any {
     return (formGroup: FormGroup) => {
       const password = formGroup.get('password');
       const confirmPassword = formGroup.get('confirmPassword');
       if (formGroup.controls['confirmPassword']) {
-        if (formGroup.controls['confirmPassword'].value === null || formGroup.controls['confirmPassword'].value === '') {
+        if (
+          formGroup.controls['confirmPassword'].value === null ||
+          formGroup.controls['confirmPassword'].value === ''
+        ) {
           return null;
-  
         } else {
           if (password && confirmPassword && password.value !== confirmPassword.value) {
-            confirmPassword?.setErrors({ mismatch: true });
+            confirmPassword?.setErrors({mismatch: true});
           } else {
             confirmPassword?.setErrors(null);
           }

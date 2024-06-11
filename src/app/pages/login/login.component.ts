@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
   }
 
   onFormChanged(value: any): void {
-    this.onSubmit(value)
+    this.onSubmit(value);
   }
 
-  onSubmit(value?: any): void{
+  onSubmit(value?: any): void {
     this.submitted = true;
     this.loading = true;
     this.authenticationService.login(value.email, value.password).subscribe({
