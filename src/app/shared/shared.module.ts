@@ -9,6 +9,7 @@ import {LocaleNumberFormatPipe} from './pipes/locale-number-format.pipe';
 import {LocaleDatePipe} from './pipes/locale-date-format.pipe';
 import {FilterComponent} from './components/filter/filter.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { DynamicFormComponent } from './components/form/dynamic-form.component';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     LocaleNumberFormatPipe,
     LocaleDatePipe,
     FilterComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DynamicFormComponent
   ],
   exports: [
     HeaderComponent,
@@ -33,7 +35,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     LocaleNumberFormatPipe,
     LocaleDatePipe,
     FilterComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DynamicFormComponent
   ]
 })
 export class SharedModule {}

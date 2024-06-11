@@ -1,0 +1,98 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <div *ngFor="let field of config.fields">
+    <label [for]="field.name">{{ field.label }}</label>
+    <ng-container [ngSwitch]="field.type">
+      <mat-form-field *ngSwitchCase="FieldType.TEXT" appearance="fill" class="w-full mb-2" subscriptSizing="dynamic">
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [formControlName]="field.name" type="text" />
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('required')">
+          {{ field.label }} is required
+        </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('email')">
+          Invalid email format
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngSwitchCase="FieldType.PASSWORD" appearance="fill" class="w-full mb-2" subscriptSizing="dynamic">
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [formControlName]="field.name" type="password" />
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('required')">
+          {{ field.label }} is required
+        </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('minlength')">
+          Minimum length is 8
+        </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('pattern')">
+          Password must include 2 uppercase letters, 2 lowercase letters, 2 numbers, and 2 symbols
+        </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('mismatch')">
+          Passwords don't match
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngSwitchCase="FieldType.SELECT" appearance="fill">
+        <mat-label>{{ field.label }}</mat-label>
+        <mat-select [formControlName]="field.name">
+          <mat-option color="primary" *ngFor="let option of field.options" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngSwitchCase="FieldType.CHECKBOX" [formArrayName]="field.name" class="mb-8 mt-4">
+        <div class="max-h-60 overflow-auto">
+          <div *ngFor="let option of field.options; let i = index">
+            <mat-checkbox *ngIf="!field.useIcons" color="primary" [formControlName]="i" class="custom-checkbox">
+              {{ option }}
+            </mat-checkbox>
+
+            <div *ngIf="field.useIcons">
+              <mat-checkbox color="primary" [formControlName]="i" class="custom-checkbox">
+                <mat-icon *ngFor="let star of getIcons(+option)">{{ star }}</mat-icon>
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="FieldType.RADIO">
+        <div *ngFor="let option of field.options">
+          <mat-radio-group [formControlName]="field.name">
+            <mat-radio-button color="primary" [value]="option">{{ option }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="FieldType.SLIDER" [formGroupName]="field.name">
+        <mat-slider [min]="field.min" [max]="field.max" style="width: 100%; margin-bottom: 20px">
+          <input [value]="field.min" matSliderStartThumb [formControlName]="'min'" />
+          <input [value]="field.max" matSliderEndThumb [formControlName]="'max'" />
+        </mat-slider>
+
+        <div class="flex justify-between align-center">
+          <div class="mt-2 w-1/3">
+            <mat-form-field class="custom-input">
+              <mat-label>Min</mat-label>
+              <input
+                matInput
+                type="number"
+                (input)="updateSlider($event, field.name, 'min')"
+                [value]="dynamicForm.get(field.name)?.get('min')?.value"
+              />
+            </mat-form-field>
+          </div>
+          <div class="mt-2 w-1/3">
+            <mat-form-field class="custom-input">
+              <mat-label>Max</mat-label>
+              <input
+                matInput
+                type="number"
+                (input)="updateSlider($event, field.name, 'max')"
+                [value]="dynamicForm.get(field.name)?.get('max')?.value"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+ <ng-content></ng-content>
+</form>

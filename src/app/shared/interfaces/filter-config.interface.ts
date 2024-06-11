@@ -1,3 +1,4 @@
+import { ValidatorFn } from '@angular/forms';
 import {FieldType} from '../enums/field-type.enum';
 
 export interface FilterField {
@@ -9,6 +10,7 @@ export interface FilterField {
   max?: number;
   step?: number;
   useIcons?: boolean;
+  validators?: ValidatorFn[];
 }
 
 export interface FilterConfig {
