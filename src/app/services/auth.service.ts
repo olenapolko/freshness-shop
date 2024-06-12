@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {environment} from '@environments/environment';
 import {User} from '@shared/interfaces/user.interface';
 
@@ -54,9 +54,18 @@ export class AuthenticationService {
     }
   }
 
-  logout() {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    this.currentUserSubject.next(null);
+  logout(): Observable<string> {
+    const token = localStorage.getItem('accessToken');
+    const headers = new HttpHeaders({Authorization: `Bearer ${token}`});
+
+    return this.http
+      .post(`${environment.baseUrl}${environment.endpoints.logout}`, {}, {headers, responseType: 'text'})
+      .pipe(
+        tap(() => {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          this.currentUserSubject.next(null);
+        })
+      );
   }
 }
