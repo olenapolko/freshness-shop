@@ -28,10 +28,6 @@ export class AuthenticationService {
     );
   }
 
-  isAuthenticated(): boolean {
-    return !!this.currentUserSubject.getValue();
-  }
-
   register(email: string, password: string, firstName: string, lastName: string): Observable<User> {
     return this.http
       .post(
