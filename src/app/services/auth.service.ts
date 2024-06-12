@@ -18,7 +18,7 @@ export class AuthenticationService {
   login(email: string, password: string): Observable<User> {
     return this.http.post<any>(`${environment.baseUrl}${environment.endpoints.login}`, {email, password}).pipe(
       map((response) => {
-        if (response && response.accessToken) {
+        if (response && response.accessToken && response.refreshToken) {
           localStorage.setItem('accessToken', response.accessToken);
           localStorage.setItem('refreshToken', response.refreshToken);
         }
