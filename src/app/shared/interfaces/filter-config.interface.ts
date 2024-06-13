@@ -9,7 +9,7 @@ export interface FilterField {
   min?: number;
   max?: number;
   step?: number;
-  useIcons?: boolean;
+  hasIcons?: boolean;
   validators?: ValidatorFn[];
 }
 

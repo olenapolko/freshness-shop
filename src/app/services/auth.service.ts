@@ -7,6 +7,11 @@ import {User} from '@shared/interfaces/user.interface';
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
+  private loginUrl = `${environment.baseUrl}/login`;
+  private registerUrl = `${environment.baseUrl}/register`;
+  private userUrl = `${environment.baseUrl}/user`;
+  private logoutUrl = `${environment.baseUrl}/logout`;
+
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 
@@ -15,8 +20,16 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  private get token(): string | null {
+    return localStorage.getItem('accessToken');
+  }
+
+  private get headers(): HttpHeaders {
+    return new HttpHeaders({Authorization: `Bearer ${this.token}`});
+  }
+
   login(email: string, password: string): Observable<User> {
-    return this.http.post<any>(`${environment.baseUrl}${environment.endpoints.login}`, {email, password}).pipe(
+    return this.http.post<any>(this.loginUrl, {email, password}).pipe(
       map((response) => {
         if (response && response.accessToken && response.refreshToken) {
           localStorage.setItem('accessToken', response.accessToken);
@@ -30,11 +43,7 @@ export class AuthenticationService {
 
   register(email: string, password: string, firstName: string, lastName: string): Observable<User> {
     return this.http
-      .post(
-        `${environment.baseUrl}${environment.endpoints.register}`,
-        {email, password, firstName, lastName},
-        {responseType: 'text'}
-      )
+      .post(this.registerUrl, {email, password, firstName, lastName}, {responseType: 'text'})
       .pipe(switchMap(() => this.login(email, password)));
   }
 
@@ -42,10 +51,7 @@ export class AuthenticationService {
     if (this.currentUserSubject.getValue()) {
       return this.currentUserSubject as Observable<User>;
     } else {
-      const token = localStorage.getItem('accessToken');
-      const headers = new HttpHeaders({Authorization: `Bearer ${token}`});
-
-      return this.http.get<User>(`${environment.baseUrl}${environment.endpoints.user}`, {headers}).pipe(
+      return this.http.get<User>(this.userUrl, {headers: this.headers}).pipe(
         map((user) => {
           this.currentUserSubject.next(user);
           return user;
@@ -55,17 +61,12 @@ export class AuthenticationService {
   }
 
   logout(): Observable<string> {
-    const token = localStorage.getItem('accessToken');
-    const headers = new HttpHeaders({Authorization: `Bearer ${token}`});
-
-    return this.http
-      .post(`${environment.baseUrl}${environment.endpoints.logout}`, {}, {headers, responseType: 'text'})
-      .pipe(
-        tap(() => {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
-          this.currentUserSubject.next(null);
-        })
-      );
+    return this.http.post(this.logoutUrl, {}, {headers: this.headers, responseType: 'text'}).pipe(
+      tap(() => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        this.currentUserSubject.next(null);
+      })
+    );
   }
 }

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {authenticatedGuard} from './guards/authenticatedGuard';
-import {unauthenticatedGuard} from './guards/unauthenticatedGuard';
+import {authenticatedGuard} from './guards/authenticated.guard';
+import {unauthenticatedGuard} from './guards/unauthenticated.guard';
 import {LayoutComponent} from './layout/layout.component';
 import {RoutingConstants} from '@shared/constants/routing.constants';
 

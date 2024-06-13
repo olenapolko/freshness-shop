@@ -8,16 +8,16 @@ import {environment} from '@environments/environment';
   providedIn: 'root'
 })
 export class ProductsService {
-  baseUrl: string = environment.baseUrl;
-  getAllProductsUrl: string = environment.endpoints.getAllProducts;
+  private baseUrl: string = environment.baseUrl;
+  private getAllProductsUrl: string = `${this.baseUrl}/products`;
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<ProductInterface[]> {
-    return this.http.get<ProductInterface[]>(`${this.baseUrl}/${this.getAllProductsUrl}`);
+    return this.http.get<ProductInterface[]>(this.getAllProductsUrl);
   }
 
   getProductDetails(id: string): Observable<ProductInterface> {
-    return this.http.get<ProductInterface>(`${this.baseUrl}/${this.getAllProductsUrl}/${id}`);
+    return this.http.get<ProductInterface>(`${this.getAllProductsUrl}/${id}`);
   }
 }

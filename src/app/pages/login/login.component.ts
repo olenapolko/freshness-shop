@@ -12,8 +12,6 @@ import {loginFormConfig} from './constants/login.config';
 export class LoginComponent implements OnInit {
   loginFormConfig: FilterConfig = loginFormConfig;
   returnUrl: string | undefined;
-  loading = false;
-  submitted = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,7 +20,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.loginFormConfig);
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -31,16 +28,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(value?: any): void {
-    this.submitted = true;
-    this.loading = true;
     this.authenticationService.login(value.email, value.password).subscribe({
       next: (data: any) => {
         this.router.navigate([this.returnUrl]);
-        console.log(data);
-      },
-      error: (error: any) => {
-        console.log(error);
-        this.loading = false;
       }
     });
   }

@@ -1,6 +1,7 @@
 import {FilterConfig} from '@shared/interfaces/filter-config.interface';
 import {FieldType} from '@shared/enums/field-type.enum';
 import {Validators} from '@angular/forms';
+import {passwordValidator, confirmPasswordValidator} from '@shared/validators/password.validators';
 
 export const registerFormConfig: FilterConfig = {
   fields: [
@@ -8,13 +9,13 @@ export const registerFormConfig: FilterConfig = {
       type: FieldType.TEXT,
       name: 'firstName',
       label: 'First Name',
-      validators: [Validators.required, Validators.minLength(3)]
+      validators: [Validators.required, Validators.minLength(2)]
     },
     {
       type: FieldType.TEXT,
       name: 'lastName',
       label: 'Last Name',
-      validators: [Validators.required, Validators.minLength(3)]
+      validators: [Validators.required, Validators.minLength(2)]
     },
     {
       type: FieldType.TEXT,
@@ -31,17 +32,13 @@ export const registerFormConfig: FilterConfig = {
       type: FieldType.PASSWORD,
       name: 'password',
       label: 'Password',
-      validators: [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern(/^(?=.*[A-Z]{2})(?=.*[a-z]{2})(?=.*\d{2})(?=.*[@$!%*?&]{2})/)
-      ]
+      validators: [Validators.required, passwordValidator()]
     },
     {
       type: FieldType.PASSWORD,
       name: 'confirmPassword',
       label: 'Confirm Password',
-      validators: [Validators.required]
+      validators: [Validators.required, confirmPasswordValidator()]
     }
   ]
 };

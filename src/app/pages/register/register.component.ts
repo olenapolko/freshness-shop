@@ -11,8 +11,6 @@ import {registerFormConfig} from './constants/register.config';
 })
 export class RegisterComponent implements OnInit {
   registerFormConfig: FilterConfig = registerFormConfig;
-  loading = false;
-  submitted = false;
 
   constructor(
     private router: Router,
@@ -26,19 +24,14 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(value?: any): void {
-    this.submitted = true;
     if (value.password !== value.confirmPassword) {
       return;
     }
-    this.loading = true;
 
     const {email, password, firstName, lastName} = value;
     this.authenticationService.register(email, password, firstName, lastName).subscribe({
       next: (data: any) => {
         this.router.navigate(['/']);
-      },
-      error: (error: any) => {
-        this.loading = false;
       }
     });
   }

@@ -12,6 +12,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatIconModule} from '@angular/material/icon';
 import {FieldType} from '@shared/enums/field-type.enum';
+import {ControlErrorHandlerPipe} from '@shared/pipes/control-error-handler.pipe';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -25,7 +26,8 @@ import {FieldType} from '@shared/enums/field-type.enum';
     MatCheckboxModule,
     MatSliderModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ControlErrorHandlerPipe
   ],
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss']
@@ -54,7 +56,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.formSubmitted.emit(this.dynamicForm.value);
-    console.log(this.dynamicForm);
   }
 
   private transformFormValues(value: any): any {
@@ -68,7 +69,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         transformedValue[field.name] = selectedOptions;
       }
     }
-
     return this.removeEmptyFields(transformedValue);
   }
 
@@ -103,29 +103,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     this.config.fields.forEach((field) => {
       group[field.name] = this.formControlResolver(field);
     });
-    return this.fb.group(group, {validators: this.matchPasswordValidator()});
-  }
-
-  private matchPasswordValidator(): any {
-    return (formGroup: FormGroup) => {
-      const password = formGroup.get('password');
-      const confirmPassword = formGroup.get('confirmPassword');
-      if (formGroup.controls['confirmPassword']) {
-        if (
-          formGroup.controls['confirmPassword'].value === null ||
-          formGroup.controls['confirmPassword'].value === ''
-        ) {
-          return null;
-        } else {
-          if (password && confirmPassword && password.value !== confirmPassword.value) {
-            confirmPassword?.setErrors({mismatch: true});
-          } else {
-            confirmPassword?.setErrors(null);
-          }
-        }
-      }
-      return null;
-    };
+    return this.fb.group(group);
   }
 
   isFormValid(): boolean {

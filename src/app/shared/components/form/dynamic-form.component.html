@@ -5,8 +5,9 @@
       <mat-form-field *ngSwitchCase="FieldType.TEXT" appearance="fill" class="w-full mb-2" subscriptSizing="dynamic">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [formControlName]="field.name" type="text" />
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('required')"> {{ field.label }} is required </mat-error>
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('email')"> Invalid email format </mat-error>
+        <mat-error *ngIf="dynamicForm.get(field.name)?.errors as errors">
+          {{ errors | controlErrorHandler }}
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field
@@ -17,12 +18,9 @@
       >
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [formControlName]="field.name" type="password" />
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('required')"> {{ field.label }} is required </mat-error>
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('minlength')"> Minimum length is 8 </mat-error>
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('pattern')">
-          Password must include 2 uppercase letters, 2 lowercase letters, 2 numbers, and 2 symbols
+        <mat-error *ngIf="dynamicForm.get(field.name)?.errors as errors">
+          {{ errors | controlErrorHandler }}
         </mat-error>
-        <mat-error *ngIf="dynamicForm.get(field.name)?.hasError('mismatch')"> Passwords don't match </mat-error>
       </mat-form-field>
 
       <mat-form-field *ngSwitchCase="FieldType.SELECT" appearance="fill">
@@ -35,11 +33,11 @@
       <div *ngSwitchCase="FieldType.CHECKBOX" [formArrayName]="field.name" class="mb-8 mt-4">
         <div class="max-h-60 overflow-auto">
           <div *ngFor="let option of field.options; let i = index">
-            <mat-checkbox *ngIf="!field.useIcons" color="primary" [formControlName]="i" class="custom-checkbox">
+            <mat-checkbox *ngIf="!field.hasIcons" color="primary" [formControlName]="i" class="custom-checkbox">
               {{ option }}
             </mat-checkbox>
 
-            <div *ngIf="field.useIcons">
+            <div *ngIf="field.hasIcons">
               <mat-checkbox color="primary" [formControlName]="i" class="custom-checkbox">
                 <mat-icon *ngFor="let star of getIcons(+option)">{{ star }}</mat-icon>
               </mat-checkbox>
