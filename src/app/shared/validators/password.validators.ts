@@ -3,11 +3,15 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 export function passwordValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
-    const pattern = /^(?=.*[A-Z]{2})(?=.*[a-z]{2})(?=.*\d{2})(?=.*[@$!%*?&]{2}).{8,}$/;
-    const valid = pattern.test(value);
-    return valid
-      ? null
-      : {pattern: 'Password must include 2 uppercase letters, 2 lowercase letters, 2 numbers, and 2 symbols'};
+    const pattern = /^(?=(?:.*[A-Z]){2})(?=(?:.*[a-z]){2})(?=(?:.*\d){2})(?=(?:.*[@$!%*?&]){2}).*$/;
+    if (value.length < 8) {
+      return {minlength: {requiredLength: 8, actualLength: value.length}};
+    }
+    if (!pattern.test(value)) {
+      return {incorrectPasswordForm: true};
+    }
+
+    return null;
   };
 }
 
