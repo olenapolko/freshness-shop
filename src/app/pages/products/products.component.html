@@ -5,7 +5,13 @@
   </div>
   <div class="flex flex-col lg:flex-row justify-between">
     <div class="filter-container flex-shrink-0 lg:w-1/4 p-2 mr-12">
-      <app-filter [config]="filterConfig" (filtersChanged)="onFiltersChanged($event)"></app-filter>
+      <app-dynamic-form [config]="filterConfig" (formChanged)="onFiltersChanged($event)"></app-dynamic-form>
+      <button
+        (click)="resetForm()"
+        class="bg-main-green hover:bg-dark-green text-white font-bold py-2 mt-8 rounded flex items-center justify-center w-full cursor-pointer"
+      >
+        Reset
+      </button>
     </div>
     <div *ngIf="!isLoading" class="products-container flex-grow flex flex-wrap justify-center gap-4 mb-10 lg:w-3/4 p-2">
       @for (product of products; track product) {
