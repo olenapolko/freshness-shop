@@ -1,10 +1,26 @@
-<form [formGroup]="filterForm">
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
   <div *ngFor="let field of config.fields">
     <label [for]="field.name">{{ field.label }}</label>
     <ng-container [ngSwitch]="field.type">
-      <mat-form-field *ngSwitchCase="FieldType.TEXT" appearance="fill">
+      <mat-form-field *ngSwitchCase="FieldType.TEXT" appearance="fill" class="w-full mb-2" subscriptSizing="dynamic">
         <mat-label>{{ field.label }}</mat-label>
         <input matInput [formControlName]="field.name" type="text" />
+        <mat-error *ngIf="dynamicForm.get(field.name)?.errors as errors">
+          {{ errors | controlErrorHandler }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field
+        *ngSwitchCase="FieldType.PASSWORD"
+        appearance="fill"
+        class="w-full mb-2"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [formControlName]="field.name" type="password" />
+        <mat-error *ngIf="dynamicForm.get(field.name)?.errors as errors">
+          {{ errors | controlErrorHandler }}
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field *ngSwitchCase="FieldType.SELECT" appearance="fill">
@@ -17,11 +33,11 @@
       <div *ngSwitchCase="FieldType.CHECKBOX" [formArrayName]="field.name" class="mb-8 mt-4">
         <div class="max-h-60 overflow-auto">
           <div *ngFor="let option of field.options; let i = index">
-            <mat-checkbox *ngIf="!field.useIcons" color="primary" [formControlName]="i" class="custom-checkbox">
+            <mat-checkbox *ngIf="!field.hasIcons" color="primary" [formControlName]="i" class="custom-checkbox">
               {{ option }}
             </mat-checkbox>
 
-            <div *ngIf="field.useIcons">
+            <div *ngIf="field.hasIcons">
               <mat-checkbox color="primary" [formControlName]="i" class="custom-checkbox">
                 <mat-icon *ngFor="let star of getIcons(+option)">{{ star }}</mat-icon>
               </mat-checkbox>
@@ -52,7 +68,7 @@
                 matInput
                 type="number"
                 (input)="updateSlider($event, field.name, 'min')"
-                [value]="filterForm.get(field.name)?.get('min')?.value"
+                [value]="dynamicForm.get(field.name)?.get('min')?.value"
               />
             </mat-form-field>
           </div>
@@ -63,7 +79,7 @@
                 matInput
                 type="number"
                 (input)="updateSlider($event, field.name, 'max')"
-                [value]="filterForm.get(field.name)?.get('max')?.value"
+                [value]="dynamicForm.get(field.name)?.get('max')?.value"
               />
             </mat-form-field>
           </div>
@@ -71,11 +87,5 @@
       </div>
     </ng-container>
   </div>
-  <button
-    [disabled]="filterForm.pristine && filterForm.valid"
-    (click)="resetForm()"
-    class="bg-main-green hover:bg-dark-green text-white font-bold py-2 mt-8 rounded flex items-center justify-center w-full cursor-pointer"
-  >
-    Reset
-  </button>
+  <ng-content></ng-content>
 </form>
