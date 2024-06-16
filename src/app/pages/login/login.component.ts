@@ -3,6 +3,7 @@ import {FilterConfig} from '@shared/interfaces/filter-config.interface';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '@services/auth.service';
 import {loginFormConfig} from './constants/login.config';
+import {SnackbarService} from '@services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit(value?: any): void {
     this.authenticationService.login(value.email, value.password).subscribe({
-      next: (data: any) => {
+      next: () => {
+        this.snackbarService.showSuccess('Login successful!');
         this.router.navigate([this.returnUrl]);
       }
     });

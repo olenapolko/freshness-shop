@@ -10,7 +10,8 @@ export class ControlErrorHandlerPipe implements PipeTransform {
     required: () => 'This field is required',
     email: () => 'Invalid email format',
     minlength: (error: ValidationErrors) => `Minimum length is ${error['requiredLength']} characters`,
-    incorrectPasswordForm: () => 'Password must include 2 uppercase letters, 2 lowercase letters, 2 numbers, and 2 symbols',
+    incorrectPasswordForm: () =>
+      'Password must include 2 uppercase letters, 2 lowercase letters, 2 numbers, and 2 symbols',
     mismatch: () => 'Passwords don`t match'
   };
 

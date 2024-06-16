@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpContext, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {environment} from '@environments/environment';
 import {User} from '@shared/interfaces/user.interface';
+import {SKIP_ERROR_INTERCEPTOR} from '../interceptors/error.interceptor';
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
@@ -51,7 +52,8 @@ export class AuthenticationService {
     if (this.currentUserSubject.getValue()) {
       return this.currentUserSubject as Observable<User>;
     } else {
-      return this.http.get<User>(this.userUrl, {headers: this.headers}).pipe(
+      const context = new HttpContext().set(SKIP_ERROR_INTERCEPTOR, true);
+      return this.http.get<User>(this.userUrl, {headers: this.headers, context}).pipe(
         map((user) => {
           this.currentUserSubject.next(user);
           return user;

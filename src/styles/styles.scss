@@ -51,3 +51,19 @@ ul {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-supporting-text-color: #fff;
+
+  span {
+    color: white;
+  }
+
+  &.snackbar-error {
+    --mdc-snackbar-container-color: #f44336;
+  }
+
+  &.snackbar-success {
+    --mdc-snackbar-container-color: #4caf50;
+  }
+}
