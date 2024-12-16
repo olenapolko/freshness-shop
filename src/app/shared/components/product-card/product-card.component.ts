@@ -7,7 +7,6 @@ import {SecondaryButtonComponent} from '../buttons/secondary/secondary-button.co
 import {MatCardModule} from '@angular/material/card';
 import {SharedModule} from '@shared/shared.module';
 import {Router} from '@angular/router';
-import {getAllProductsUrl} from '@environments/environment';
 
 @Component({
   selector: 'app-product-card',
@@ -18,6 +17,7 @@ import {getAllProductsUrl} from '@environments/environment';
 export class ProductCardComponent {
   @Input() product!: ProductInterface;
   stars: number[] = [];
+  private productDetailsUrl: string = '/products';
 
   constructor(private router: Router) {}
 
@@ -36,6 +36,6 @@ export class ProductCardComponent {
 
   navigateToProductDetails(event: Event): void {
     event.stopPropagation();
-    this.router.navigate([`/${getAllProductsUrl}/${this.product._id}`]);
+    this.router.navigate([`${this.productDetailsUrl}/${this.product._id}`]);
   }
 }

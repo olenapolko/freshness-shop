@@ -1,3 +1,5 @@
 export const RoutingConstants = {
-  PRODUCTS: 'products'
+  PRODUCTS: 'products',
+  LOGIN: 'login',
+  REGISTER: 'register'
 };

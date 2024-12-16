@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, OnDestroy} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FilterConfig} from '@shared/interfaces/filter-config.interface';
 import {CommonModule} from '@angular/common';
 import {MatSliderModule} from '@angular/material/slider';
@@ -10,48 +10,52 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatButtonModule} from '@angular/material/button';
-import {MIN_PRICE, MAX_PRICE} from 'src/app/pages/products/constants/constants';
-import {FieldType} from '@shared/enums/field-type.enum';
 import {MatIconModule} from '@angular/material/icon';
+import {FieldType} from '@shared/enums/field-type.enum';
+import {ControlErrorHandlerPipe} from '@shared/pipes/control-error-handler.pipe';
 
 @Component({
-  selector: 'app-filter',
+  selector: 'app-dynamic-form',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    MatSliderModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
     MatRadioModule,
-    MatButtonModule,
-    MatIconModule
+    MatSelectModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSliderModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    ControlErrorHandlerPipe
   ],
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  templateUrl: './dynamic-form.component.html',
+  styleUrls: ['./dynamic-form.component.scss']
 })
-export class FilterComponent implements OnInit, OnDestroy {
+export class DynamicFormComponent implements OnInit, OnDestroy {
   @Input() config!: FilterConfig;
-  @Output() filtersChanged = new EventEmitter<any>();
-  filterForm!: FormGroup;
+  @Output() formChanged = new EventEmitter<any>();
+  @Output() formSubmitted = new EventEmitter<any>();
+  dynamicForm!: FormGroup;
   FieldType = FieldType;
   subscr$ = new Subject<void>();
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.filterForm = this.createForm();
-    this.filterForm.valueChanges
+    this.dynamicForm = this.createForm();
+    this.dynamicForm.valueChanges
       .pipe(debounceTime(500), takeUntil(this.subscr$))
-      .subscribe((value) => this.onFilterChange(value));
+      .subscribe((value) => this.onFormChange(value));
   }
 
-  onFilterChange(value: any): void {
+  onFormChange(value: any): void {
     const transformedValue = this.transformFormValues(value);
-    this.filtersChanged.emit(transformedValue);
+    this.formChanged.emit(transformedValue);
+  }
+
+  onSubmit(): void {
+    this.formSubmitted.emit(this.dynamicForm.value);
   }
 
   private transformFormValues(value: any): any {
@@ -65,7 +69,6 @@ export class FilterComponent implements OnInit, OnDestroy {
         transformedValue[field.name] = selectedOptions;
       }
     }
-
     return this.removeEmptyFields(transformedValue);
   }
 
@@ -81,6 +84,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   private formControlResolver(field: any) {
+    const validators = field.validators || [];
     switch (field.type) {
       case FieldType.CHECKBOX:
         return new FormArray(field.options!.map(() => new FormControl(false)));
@@ -90,7 +94,7 @@ export class FilterComponent implements OnInit, OnDestroy {
           max: new FormControl(field.max)
         });
       default:
-        return new FormControl('');
+        return new FormControl('', validators);
     }
   }
 
@@ -102,20 +106,14 @@ export class FilterComponent implements OnInit, OnDestroy {
     return this.fb.group(group);
   }
 
-  updateSlider(event: Event, formItemId: string, control: string): void {
-    const value = (event.target as HTMLInputElement)?.value;
-    this.filterForm.get(formItemId)?.get(control)?.patchValue(+value);
-    this.filterForm.markAsDirty();
+  isFormValid(): boolean {
+    return this.dynamicForm.valid;
   }
 
-  resetForm() {
-    this.filterForm.reset();
-    this.filterForm.patchValue({
-      price: {
-        min: MIN_PRICE,
-        max: MAX_PRICE
-      }
-    });
+  updateSlider(event: Event, formItemId: string, control: string): void {
+    const value = (event.target as HTMLInputElement)?.value;
+    this.dynamicForm.get(formItemId)?.get(control)?.patchValue(+value);
+    this.dynamicForm.markAsDirty();
   }
 
   ngOnDestroy(): void {
